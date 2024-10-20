@@ -89,7 +89,9 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
       <motion.div
         animate={{
           x: modalPosition.x ?? -500,
-          y: modalPosition.y ?? -600
+          y: modalPosition.y ?? -600,
+          width: 0,
+          height: 0
         }}
       >
         <Modal

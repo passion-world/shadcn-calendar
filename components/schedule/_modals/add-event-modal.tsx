@@ -33,7 +33,7 @@ export default function AddEventModal({
   } = useForm<EventFormData>({
     resolver: zodResolver(eventSchema),
     defaultValues: {
-      title: 'New Event', // Initial title is an empty string
+      title: '', // Initial title is an empty string
       description: '',
       startDate: new Date(),
       endDate: new Date(),
@@ -46,15 +46,9 @@ export default function AddEventModal({
   const [eventId, setEventId] = useState<string>('');
   // Ref to check if the event has been added
   const eventAddedRef = useRef(false);
-  const isFirstRender = useRef(true); // Flag to check if it's the first render
 
   // Reset the form on initialization and create a new event in month view
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false; // Set it to false after the first render
-
-      return; // Exit early on the first render
-    }
     if (data) {
       reset({
         title: data.title,
@@ -98,21 +92,19 @@ export default function AddEventModal({
     }
   }, [title, eventId, typedData, handlers]);
 
-  useEffect(() => {
-    if (!eventId) {
-      const updatedEvent: Event = {
-        ...typedData,
-        id: data.id || 'temp', // Use the stored event ID
-        title,
-        description: 'a',
-        variant: data?.variant || 'secondary'
-      };
+  // useEffect(() => {
+  //   if (!eventId) {
+  //     const updatedEvent: Event = {
+  //       ...typedData,
+  //       id: data.id || 'temp', // Use the stored event ID
+  //       title,
+  //       description: 'a',
+  //       variant: data?.variant || 'secondary'
+  //     };
 
-      console.log(updatedEvent);
-
-      // handlers.handleUpdateEvent(updatedEvent, data.id);
-    }
-  }, [title, eventId, typedData, handlers]);
+  //     // handlers.handleUpdateEvent(updatedEvent, data.id);
+  //   }
+  // }, [title, eventId, typedData, handlers]);
 
   return (
     <form className="flex flex-col gap-3">
